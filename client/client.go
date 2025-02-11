@@ -1,6 +1,7 @@
 package client
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/HobbyOSs/codegen/ocode"
@@ -11,7 +12,7 @@ import (
 type CodegenClient interface {
 	Emit(line string) error
 	EmitAll(text string) error
-	Exec() (float64, error)
+	Exec() ([]byte, error)
 }
 
 // ocodeClient 構造体の定義
@@ -37,9 +38,29 @@ func (c *ocodeClient) Emit(line string) error {
 	return nil
 }
 
-// TODO parseLineToOcode 実装
 func parseLineToOcode(line string) (ocode.Ocode, error) {
-	panic("unimplemented")
+	// スペースで分割
+	parts := strings.Fields(line)
+	if len(parts) == 0 {
+		return ocode.Ocode{}, fmt.Errorf("empty line")
+	}
+
+	// Ocodeのバリデーション
+	kind, err := ocode.OcodeKindString("Op" + parts[0])
+	if err != nil {
+		return ocode.Ocode{}, fmt.Errorf("invalid OcodeKind: %s", parts[0])
+	}
+
+	// オペランドを,区切りで取得
+	var operands []string
+	if len(parts) > 1 {
+		operands = strings.Split(parts[1], ",")
+	}
+
+	return ocode.Ocode{
+		Kind:     kind,
+		Operands: operands,
+	}, nil
 }
 
 // EmitAll メソッドの実装
@@ -54,9 +75,7 @@ func (c *ocodeClient) EmitAll(text string) error {
 }
 
 // Exec メソッドの実装
-func (c *ocodeClient) Exec() (float64, error) {
-	// 実行ロジックを実装
-	_ = x86_gen.GenerateX86(c.ocodes)
-	// TODO: ここで machineCode を使って何らかの処理を行う
-	return 0, nil // 適切な戻り値に変更
+func (c *ocodeClient) Exec() ([]byte, error) {
+	machineCode := x86_gen.GenerateX86(c.ocodes)
+	return machineCode, nil
 }

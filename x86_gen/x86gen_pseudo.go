@@ -1,27 +1,30 @@
 package x86_gen
 
-func handleDB(args []interface{}) []byte {
+import "strconv"
+
+func handleDB(args []string) []byte {
 	var binary []byte
 	for _, arg := range args {
-		binary = append(binary, byte(arg.(int)))
+		num, _ := strconv.Atoi(arg)
+		binary = append(binary, byte(num))
 	}
 	return binary
 }
 
-func handleDW(args []interface{}) []byte {
+func handleDW(args []string) []byte {
 	var binary []byte
 	for _, arg := range args {
-		val := arg.(int)
-		binary = append(binary, byte(val&0xFF), byte((val>>8)&0xFF))
+		num, _ := strconv.Atoi(arg)
+		binary = append(binary, byte(num&0xFF), byte((num>>8)&0xFF))
 	}
 	return binary
 }
 
-func handleDD(args []interface{}) []byte {
+func handleDD(args []string) []byte {
 	var binary []byte
 	for _, arg := range args {
-		val := arg.(int)
-		binary = append(binary, byte(val&0xFF), byte((val>>8)&0xFF), byte((val>>16)&0xFF), byte((val>>24)&0xFF))
+		num, _ := strconv.Atoi(arg)
+		binary = append(binary, byte(num&0xFF), byte((num>>8)&0xFF), byte((num>>16)&0xFF), byte((num>>24)&0xFF))
 	}
 	return binary
 }

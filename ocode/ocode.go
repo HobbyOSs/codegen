@@ -4,11 +4,11 @@ package ocode
 type OcodeKind int
 
 const (
-	OpLN       OcodeKind = iota // LN k; 数値型をスタックに入れる
-	OpLSTR                      // LSTR k C1,C2,...,Ck
-	OpDB                        // DB (Define Byte)
-	OpDW                        // DW (Define Word)
-	OpDD                        // DD (Define Double Word)
+	OpL        OcodeKind = iota // e.g.) L k / L c1,c2,c3 / などスタックにpushする
+	OpDB                        // DB n_1,n_2,n_3,..,n_k
+	OpDW                        // DW n_1,n_2,n_3,..,n_k
+	OpDD                        // DD n_1,n_2,n_3,..,n_k
+	OpADD                       // ADD
 	OpAAA                       // AAA
 	OpAAD                       // AAD
 	OpAAM                       // AAM
@@ -162,5 +162,5 @@ const (
 
 type Ocode struct {
 	Kind     OcodeKind
-	Operands []interface{} // 数値や変数名など
+	Operands []string // 数値や変数名など
 }

@@ -9,6 +9,10 @@ type VariantStack struct {
 	items []any
 }
 
+func NewVariantStack() *VariantStack {
+	return &VariantStack{}
+}
+
 // Push 任意の型の要素を追加
 func (s *VariantStack) Push(item any) {
 	s.items = append(s.items, item)

@@ -1,27 +1,15 @@
 package x86_gen
 
-import "fmt"
+import (
+	"fmt"
 
-func handleLN(args []interface{}, sm *StackMachine) ([]byte, error) {
-	if len(args) != 1 {
-		return nil, fmt.Errorf("LN requires 1 argument")
-	}
-	value, ok := args[0].(DWord)
-	if !ok {
-		return nil, fmt.Errorf("argument is not of type Dword")
-	}
-	sm.Push(value)
-	return nil, nil
-}
+	"github.com/HobbyOSs/codegen/variantstack"
+)
 
-func handleLL(args []interface{}, sm *StackMachine) ([]byte, error) {
+func handleL(args []string, vs *variantstack.VariantStack) ([]byte, error) {
 	if len(args) != 1 {
-		return nil, fmt.Errorf("LN requires 1 argument")
+		return nil, fmt.Errorf("L requires 1 argument")
 	}
-	value, ok := args[0].(DWord)
-	if !ok {
-		return nil, fmt.Errorf("argument is not of type Dword")
-	}
-	sm.Push(value)
+	vs.Push(args[0])
 	return nil, nil
 }

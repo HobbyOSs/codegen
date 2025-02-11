@@ -1,13 +1,16 @@
 package x86_gen
 
-import "github.com/HobbyOSs/codegen/ocode"
+import (
+	"github.com/HobbyOSs/codegen/ocode"
+	"github.com/HobbyOSs/codegen/variantstack"
+)
 
 func GenerateX86(ocodes []ocode.Ocode) []byte {
 	var machineCode []byte
-	sm := NewStackMachine()
+	vs := variantstack.NewVariantStack()
 
 	for _, ocode := range ocodes {
-		code, err := processOcode(ocode, sm)
+		code, err := processOcode(ocode, vs)
 		if err != nil {
 
 		}
@@ -18,10 +21,10 @@ func GenerateX86(ocodes []ocode.Ocode) []byte {
 }
 
 // processOcode processes a single ocode and returns the corresponding machine code.
-func processOcode(oc ocode.Ocode, sm *StackMachine) ([]byte, error) {
+func processOcode(oc ocode.Ocode, vs *variantstack.VariantStack) ([]byte, error) {
 	switch oc.Kind {
-	case ocode.OpLN:
-		return handleLN(oc.Operands, sm)
+	case ocode.OpL:
+		return handleL(oc.Operands, vs)
 	case ocode.OpDB:
 		return handleDB(oc.Operands), nil
 	case ocode.OpDW:
