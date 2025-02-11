@@ -4,11 +4,11 @@ GOTEST=gotest
 
 BIN=codegen
 
-.PHONY: all test gen
+.PHONY: all test
 
 all: dep build test
 
-build: dep
+build: dep gen
 	$(GOBUILD) -v
 	go install -v ./...
 
@@ -23,7 +23,6 @@ run: build
 	chmod +x ./$(BIN)
 	./$(BIN)
 
-
 gen:
 	go generate ./...
 
@@ -37,3 +36,4 @@ dep:
 tool:
 	go install -v golang.org/x/tools/gopls@latest
 	go install -v github.com/go-delve/delve/cmd/dlv@latest
+	go install github.com/dmarkham/enumer@latest
