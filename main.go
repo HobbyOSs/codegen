@@ -9,39 +9,33 @@ import (
 const version = "0.1.0"
 
 func main() {
-	// フラグ定義
-	helpFlag := flag.Bool("help", false, "Show help message")
-	versionFlag := flag.Bool("version", false, "Show version information")
+	helpFlag := flag.Bool("help", false, "ヘルプメッセージを表示")
+	versionFlag := flag.Bool("version", false, "バージョン情報を表示")
 	flag.Parse()
 
-	// --help フラグ処理
 	if *helpFlag {
 		printHelp()
 		os.Exit(0)
 	}
 
-	// --version フラグ処理
 	if *versionFlag {
-		fmt.Printf("codegen version %s\n", version)
+		fmt.Printf("codegen バージョン %s\n", version)
 		os.Exit(0)
 	}
 
-	// 残りの引数を処理
 	args := flag.Args()
 	if len(args) == 0 {
-		fmt.Println("Error: No input file specified")
+		fmt.Println("エラー: 入力ファイルが指定されていません")
 		printHelp()
 		os.Exit(1)
 	}
-
-	// ここにOCODE処理の実装を追加
 }
 
 func printHelp() {
-	fmt.Println("Usage: codegen [options] <input-file>")
-	fmt.Println("\nOptions:")
+	fmt.Println("使用方法: codegen [オプション] <入力ファイル>")
+	fmt.Println("\nオプション:")
 	flag.PrintDefaults()
-	fmt.Println("\nExamples:")
+	fmt.Println("\n使用例:")
 	fmt.Println("  codegen program.ocode")
 	fmt.Println("  codegen --version")
 }
