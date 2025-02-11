@@ -1,4 +1,4 @@
-package backend
+package x86_gen
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-package backend
+package x86_gen
 
 type Byte uint8
 type Word uint16

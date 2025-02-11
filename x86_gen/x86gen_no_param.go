@@ -1,4 +1,4 @@
-package backend
+package x86_gen
 
 import "github.com/HobbyOSs/codegen/ocode"
 

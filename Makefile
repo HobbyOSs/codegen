@@ -2,15 +2,14 @@
 GOBUILD=go build
 GOTEST=gotest
 
-BIN=gbcpl
+BIN=codegen
 
 .PHONY: all test gen
 
 all: dep build test
 
 build: dep
-	#cd cmd/gosk && $(GOBUILD) -v
-	#cd ..
+	$(GOBUILD) -v
 	go install -v ./...
 
 test:
@@ -21,6 +20,7 @@ clean:
 	go clean
 
 run: build
+	chmod +x ./$(BIN)
 	./$(BIN)
 
 
